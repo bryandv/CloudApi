@@ -12613,11 +12613,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\PingPong_Program\\API_PP\\API_PP\\API_PP.csproj",
+      "projectUniqueName": "C:\\ap\\2018-2019\\Cloud_Api\\CloudApi\\CloudApi\\API_PP\\API_PP\\API_PP.csproj",
       "projectName": "API_PP",
-      "projectPath": "C:\\PingPong_Program\\API_PP\\API_PP\\API_PP.csproj",
+      "projectPath": "C:\\ap\\2018-2019\\Cloud_Api\\CloudApi\\CloudApi\\API_PP\\API_PP\\API_PP.csproj",
       "packagesPath": "C:\\Users\\bryan\\.nuget\\packages\\",
-      "outputPath": "C:\\PingPong_Program\\API_PP\\API_PP\\obj\\",
+      "outputPath": "C:\\ap\\2018-2019\\Cloud_Api\\CloudApi\\CloudApi\\API_PP\\API_PP\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
