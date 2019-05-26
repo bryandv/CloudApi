@@ -11,12 +11,20 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
 import {PanelModule} from 'primeng/panel';
 import {InputTextModule} from 'primeng/inputtext';
-import {FormsModule} from '@angular/forms'
+import {FormsModule,ReactiveFormsModule} from '@angular/forms'
 import { TeamsComponent } from './teams/teams.component';
 import { SwapiComponent } from './swapi/swapi.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './service/auth.guard';
 
+import {environment} from "../environments/environment";
+
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -26,8 +34,13 @@ import { HomeComponent } from './home/home.component';
     NavbarComponent,
     HomeComponent,
     
+    
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -40,10 +53,10 @@ import { HomeComponent } from './home/home.component';
     PanelModule,
     ToolbarModule,
     RouterModule.forRoot([
-      { path: "", redirectTo: "home", pathMatch: "full"},
+      { path: "", redirectTo: "home", pathMatch: "full",canActivate: [AuthGuard]},
       {path: "home",component:HomeComponent},
-      {path: "star",component:SwapiComponent},
-      {path: "pp",component:TeamsComponent}
+      {path: "star",component:SwapiComponent,canActivate: [AuthGuard]},
+      {path: "pp",component:TeamsComponent,canActivate: [AuthGuard]}
     ])
     
   ],
