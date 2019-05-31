@@ -38,5 +38,45 @@ namespace API_PP.Controllers
 
             return Ok(speler);
         }
+
+
+        [HttpPost]
+        public IActionResult CreateSpeler([FromBody] Speler2 newspeler)
+        {
+            _context.Speler.Add(newspeler);
+            _context.SaveChanges();
+            return Created("", newspeler);
+        }
+
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult DeleteSpeler(int id)
+        {
+            var speler = _context.Speler.Find(id);
+            if (speler == null)
+                return NotFound();
+
+            _context.Speler.Remove(speler);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult UpdateSpeler([FromBody] Speler2 updatespeler)
+        {
+            var orgSpeler = _context.Speler.Find(updatespeler.Id);
+            if (orgSpeler == null)
+                return NotFound();
+
+            orgSpeler.Name = updatespeler.Name;
+            orgSpeler.Klassement = updatespeler.Klassement;
+            orgSpeler.WaardeKlassement = updatespeler.WaardeKlassement;
+            orgSpeler.Club = updatespeler.Club;
+
+            _context.SaveChanges();
+            return Ok(orgSpeler);
+        }
+
     }
 }
