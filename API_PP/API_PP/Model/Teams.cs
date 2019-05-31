@@ -15,6 +15,7 @@ namespace API_PP.Model
         public void SetTotaalaarde()
         {
             //Totaalwaarde = Speler1.Klassement;
+            //Totaalwaarde = Speler1.WaardeKlassement + Speler2.WaardeKlassement;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API_PP.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_PP.Controllers
 {
@@ -19,10 +20,23 @@ namespace API_PP.Controllers
         }
 
         [HttpGet]
-        public List<Teams> GetTeams()
+        public List<Speler2> GetTeams()
         {
-            return _context.Team.ToList();
+            return _context.Speler.ToList();
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        public IActionResult getSpeler(int id)
+        {
+            var speler = _context.Speler
+                    .Include(d => d.Club)
+                    .SingleOrDefault(d => d.Id == id);
+
+            if (speler == null)
+                return NotFound();
+
+            return Ok(speler);
+        }
     }
 }

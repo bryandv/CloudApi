@@ -15,9 +15,20 @@ namespace API_PP.Controllers
     
     public class PPController : ControllerBase
     {
-        
+        public LibraryContext _context;
+        public PPController(LibraryContext ctxt)
+        {
+            _context = ctxt;
+        }
+
         [HttpGet]
-        public Speler get()
+        public List<Club> GetTeams()
+        {
+            return _context.Clubs.ToList();
+        }
+
+        //[HttpGet]
+        /*public Speler get()
         {
             var speler = new Speler()
             {
@@ -28,10 +39,10 @@ namespace API_PP.Controllers
 
             return speler;
         }
-        [Route("Lijst")]
-        [HttpGet]
+        //[Route("Lijst")]
+        //[HttpGet]
         
-        public List<Teams> GetPlayers()
+        /*public List<Teams> GetPlayers()
         {
             var spelers = new List<Speler>();
             var teams = new List<Teams>();
@@ -95,7 +106,7 @@ namespace API_PP.Controllers
                 Klassement = "C0"
             });
             return teams;
-        }
+        }*/
     }
 }
 
