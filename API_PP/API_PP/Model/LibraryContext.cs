@@ -13,8 +13,6 @@ namespace API_PP.Model
         {
 
         }
-        public DbSet<Teams> Team { get; set; }
-        public DbSet<Speler> spelers { get; set; }
 
         public DbSet<Speler2> Speler { get; set; }
 

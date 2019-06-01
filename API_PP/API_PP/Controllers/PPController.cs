@@ -6,6 +6,7 @@ using API_PP.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_PP.Controllers
 {
@@ -27,86 +28,46 @@ namespace API_PP.Controllers
             return _context.Clubs.ToList();
         }
 
-        //[HttpGet]
-        /*public Speler get()
+        [Route("{id}")]
+        [HttpGet]
+        public IActionResult getClub(int id)
         {
-            var speler = new Speler()
-            {
-            Naam = "Bryan Devolder",
-            Club = "Merksplas",
-            Klassement = "C0"
-            };
+            var club = _context.Clubs.Find(id);
 
-            return speler;
+            if (club == null)
+                return NotFound();
+
+            return Ok(club);
         }
-        //[Route("Lijst")]
-        //[HttpGet]
-        
-        /*public List<Teams> GetPlayers()
+
+        [Route("{id}/spelers")]
+        [HttpGet]
+        public IActionResult getClubSpelers(int id)
         {
-            var spelers = new List<Speler>();
-            var teams = new List<Teams>();
-            teams.Add(new Teams()
-            {
-                Id = 1,
-               Speler1 = new Speler()
-               {
-                   Naam = "Devolder Bryan",
-                   Club = "Merksplas",
-                   Klassement = "C0"
-               },
-               Speler2 = new Speler()
-               {
-                   Naam = "Torfs Yordi",
-                   Club = "Merksplas",
-                   Klassement = "B6"
-               }
-              
-               
-            });
-            teams.Add(new Teams()
-            {
-                Id = 2,
-                Speler1 = new Speler()
-                {
-                    Naam = "Niels Maes",
-                    Club = "Merksplas",
-                    Klassement = "C0"
-                },
-                Speler2 = new Speler()
-                {
-                    Naam = "Laura Van Baekel",
-                    Club = "Merksplas",
-                    Klassement = "C4"
-                }
+            var club = _context.Clubs
+                    .Include(d => d.Spelers)
+                    .SingleOrDefault(d => d.Id == id);
 
-            });
-            teams.Add(new Teams()
-            {
-                Id = 3,
-                Speler1 = new Speler()
-                {
-                    Naam = "Glen Steas",
-                    Club = "Merksplas",
-                    Klassement = "C0"
-                },
-                Speler2 = new Speler()
-                {
-                    Naam = "Tim Peeters",
-                    Club = "Merksplas",
-                    Klassement = "C4"
-                }
+            if (club == null)
+                return NotFound();
 
-            });
+            return Ok(club.Spelers);
+        }
 
-            spelers.Add(new Speler()
-            {
-                Naam = "Glen Staes",
-                Club = "Merksplas",
-                Klassement = "C0"
-            });
-            return teams;
-        }*/
+        [Route("{id}")]
+        [HttpDelete]
+        public IActionResult DeleteClub(int id)
+        {
+            var club = _context.Clubs.Find(id);
+            if (club == null)
+                return NotFound();
+
+            _context.Clubs.Remove(club);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
     }
 }
 

@@ -20,9 +20,35 @@ namespace API_PP.Controllers
         }
 
         [HttpGet]
-        public List<Speler2> GetTeams()
+        public List<Speler2> GetAllSpelers(string Klassement, string Name, string sort, int? page, string dir = "asc", int length =5)
         {
-            return _context.Speler.ToList();
+            IQueryable<Speler2> query = _context.Speler;
+
+            if (!string.IsNullOrWhiteSpace(Klassement))
+                query = query.Where(d => d.Klassement == Klassement);
+            if (!string.IsNullOrWhiteSpace(Name))
+                query = query.Where(d => d.Name == Name);
+
+
+            if(!string.IsNullOrWhiteSpace(sort))
+            {
+                switch(sort)
+                {
+                    case "WaardeKlassement":
+                        if (dir == "asc")
+                            query = query.OrderBy(d => d.WaardeKlassement);
+                        else if (dir == "desc")
+                            query = query.OrderByDescending(d => d.WaardeKlassement);
+                        break;
+                }
+            }
+
+            if(page.HasValue)
+                query = query.Skip(page.Value * length);
+            query = query.Take(length);
+            
+
+            return query.ToList();
         }
 
         [Route("{id}")]
@@ -69,10 +95,15 @@ namespace API_PP.Controllers
             if (orgSpeler == null)
                 return NotFound();
 
-            orgSpeler.Name = updatespeler.Name;
-            orgSpeler.Klassement = updatespeler.Klassement;
-            orgSpeler.WaardeKlassement = updatespeler.WaardeKlassement;
-            orgSpeler.Club = updatespeler.Club;
+            if(updatespeler.Name != null)
+                orgSpeler.Name = updatespeler.Name;
+            if (updatespeler.Klassement != null)
+                orgSpeler.Klassement = updatespeler.Klassement;
+            if (updatespeler.WaardeKlassement != 0)
+                orgSpeler.WaardeKlassement = updatespeler.WaardeKlassement;
+            if (updatespeler.Club != null)
+                orgSpeler.Club = updatespeler.Club;
+
 
             _context.SaveChanges();
             return Ok(orgSpeler);
