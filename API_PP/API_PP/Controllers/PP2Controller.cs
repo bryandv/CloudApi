@@ -20,7 +20,7 @@ namespace API_PP.Controllers
         }
 
         [HttpGet]
-        public List<Speler2> GetAllSpelers(string Klassement, string Name, string sort, int? page, string dir = "asc", int length =5)
+        public List<Speler2> GetAllSpelers(string Klassement, string Name, string sort, int? page, string dir = "asc", int length =2)
         {
             IQueryable<Speler2> query = _context.Speler;
 

@@ -97,6 +97,7 @@ export class SwapiComponent implements OnInit {
 
   DoInfo(person:string)
   {
+    console.log("test");
     this._svc.film(person).subscribe((result) => {
       console.table(result);
 

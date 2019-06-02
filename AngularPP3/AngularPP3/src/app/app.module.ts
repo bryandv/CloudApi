@@ -11,7 +11,8 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {CardModule} from 'primeng/card';
 import {PanelModule} from 'primeng/panel';
 import {InputTextModule} from 'primeng/inputtext';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms'
+import {DialogModule} from "primeng/dialog";
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { TeamsComponent } from './teams/teams.component';
 import { SwapiComponent } from './swapi/swapi.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -25,6 +26,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { GetSpelerComponent } from './teams/get-speler/get-speler.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     SwapiComponent,
     NavbarComponent,
     HomeComponent,
+    GetSpelerComponent,
     
     
   ],
@@ -43,6 +46,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    DialogModule,
     HttpClientModule,
     ButtonModule,
     TableModule,

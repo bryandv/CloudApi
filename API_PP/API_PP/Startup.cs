@@ -33,7 +33,14 @@ namespace API_PP
            );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors();
+            services.AddCors(options => {
+                options.AddPolicy("AllowAllMethods",
+                builder => {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,9 +50,7 @@ namespace API_PP
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(
-                  options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
-              );
+            app.UseCors("AllowAllMethods");
             DBInitializer.Initialize(context);
             app.UseMvc();
         
